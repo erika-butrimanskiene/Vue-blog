@@ -1,15 +1,15 @@
 <template>
   <div>
-    <EditUserPosts />
+    <UserPosts />
   </div>
 </template>
 
 <script>
-import EditUserPosts from '../components/EditUserPosts';
+import UserPosts from '../components/UserPosts';
 export default {
   name: 'EditingPage',
   components: {
-    EditUserPosts,
+    UserPosts,
   },
 };
 </script>

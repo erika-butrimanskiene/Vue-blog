@@ -23,6 +23,10 @@
     <div>
       <button type="submit">Upload Post</button>
     </div>
+
+    <div v-if="submitMessage !== ''">
+      <p>{{ submitMessage }}</p>
+    </div>
   </form>
 </template>
 
@@ -37,12 +41,30 @@ export default {
         image: '',
         secretKey: localStorage.getItem('vue-blog-key'),
       },
-      errorMessage: '',
+      submitMessage: '',
     };
   },
   methods: {
     handleSubmit() {
-      this.postFetch();
+      if (this.checkInputs()) {
+        this.postFetch();
+      }
+    },
+    checkInputs() {
+      let errorText = '';
+      if (this.post.title.length < 20) {
+        errorText += 'Title has to be at least 20 symbols length. ';
+      }
+      if (this.post.description.length < 50) {
+        errorText += 'Description has to be at least 50 symbols length. ';
+      }
+      if (this.post.image.indexOf('http') === -1) {
+        errorText += 'Image url is wrong. (has to include http) ';
+      }
+
+      this.submitMessage = errorText;
+
+      return errorText === '';
     },
     postFetch() {
       fetch('http://167.99.138.67:1111/createpost', {
@@ -55,6 +77,14 @@ export default {
         .then((res) => res.json())
         .then((data) => {
           console.log(data);
+          if (data.success === false) {
+            this.submitMessage = data.message;
+          } else {
+            (this.post.title = ''),
+              (this.post.description = ''),
+              (this.post.image = '');
+            this.submitMessage = 'Post is successfully created.';
+          }
         })
         .catch((err) => console.log(err));
     },
