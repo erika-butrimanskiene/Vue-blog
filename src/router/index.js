@@ -5,7 +5,6 @@ import Registration from '../views/Registration.vue';
 import Login from '../views/Login.vue';
 import SinglePostPage from '../views/SinglePostPage.vue';
 import ParticularUserPostsPage from '../views/ParticularUserPostsPage.vue';
-import Admin from '../views/Admin.vue';
 import EditingPage from '../views/EditingPage.vue';
 import AddPostPage from '../views/AddPostPage.vue';
 
@@ -36,21 +35,6 @@ const routes = [
     path: '/login',
     name: 'Login',
     component: Login,
-  },
-  {
-    path: '/admin',
-    name: 'Admin',
-    component: Admin,
-    beforeEnter(to, from, next) {
-      let token = localStorage.getItem('vue-blog-key');
-      if (token !== null) {
-        next();
-      } else {
-        next({
-          name: 'Login',
-        });
-      }
-    },
   },
   {
     path: '/editPosts',

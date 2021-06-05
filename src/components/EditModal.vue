@@ -5,35 +5,8 @@
         <span class="modal-close__span">&times;</span>
       </div>
       <div class="modal-text">
-        <div class="modal-header">
-          <slot name="header"></slot>
-        </div>
-
-        <form class="new-post-form">
-          <p>{{ post.id }}</p>
-          <div>
-            <label for="postTitle">Post Title</label>
-            <input type="text" id="postTitle" :value="post.title" />
-          </div>
-          <div>
-            <label for="postDescription">Post Description</label>
-            <textarea
-              type="text"
-              rows="5"
-              id="postDescription"
-              :value="post.description"
-            />
-          </div>
-
-          <div>
-            <label for="postImage">Post Image</label>
-            <input type="text" id="postImage" :value="post.image" />
-          </div>
-
-          <div>
-            <button type="submit">Save Post</button>
-          </div>
-        </form>
+        <slot name="header"></slot>
+        <slot name="form"></slot>
       </div>
     </div>
   </div>
@@ -46,25 +19,10 @@ export default {
       this.$emit('closeModal');
     },
   },
-  props: {
-    post: Object,
-  },
 };
 </script>
 <style scoped>
-.modal {
-  display: block;
-  position: fixed;
-  z-index: 1;
-  padding-top: 130px;
-  left: 0;
-  top: 0;
-  width: 100%;
-  height: 100%;
-  overflow: auto;
-  background-color: rgba(0, 0, 0, 0.4);
-}
-
+/* MOBILE first */
 .modal__content {
   display: flex;
   flex-wrap: wrap;
@@ -73,7 +31,26 @@ export default {
   padding: 30px;
   border: 1px solid #888;
   width: 80%;
-  height: 60%;
+  height: 95%;
+}
+
+.modal {
+  display: block;
+  position: fixed;
+  z-index: 1;
+  padding-top: 60px;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+  background-color: rgba(0, 0, 0, 0.4);
+}
+
+.modal-text {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 .modal-close__span {
@@ -96,6 +73,7 @@ export default {
 }
 
 .modal-text {
+  width: 100%;
   display: flex;
   flex-direction: column;
 }
