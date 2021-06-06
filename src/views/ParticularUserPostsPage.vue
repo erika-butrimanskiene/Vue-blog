@@ -1,7 +1,5 @@
 <template>
-  <div>
-    <AllParticularUserPosts />
-  </div>
+  <AllParticularUserPosts />
 </template>
 
 <script>

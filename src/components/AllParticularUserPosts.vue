@@ -1,24 +1,26 @@
 <template>
-  <div class="particular-user-posts">
-    <ParticularUserPost
+  <main class="particular-user-posts">
+    <BlogPost
       v-for="post in particularUserPosts"
       :key="post.id"
       :post="post"
+      :isparticularUserPost="isparticularUserPost"
       @postClick="getSinglePost(post.username, post.id)"
     />
-  </div>
+  </main>
 </template>
 
 <script>
-import ParticularUserPost from '../components/ParticularUserPost';
+import BlogPost from '../components/BlogPost';
 export default {
   name: 'AllParticularUserPosts',
   components: {
-    ParticularUserPost,
+    BlogPost,
   },
   data() {
     return {
       particularUserPosts: [],
+      isparticularUserPost: true,
     };
   },
   methods: {
@@ -30,7 +32,6 @@ export default {
     fetch(`http://167.99.138.67:1111/getuserposts/${this.$route.params.name}`)
       .then((res) => res.json())
       .then((data) => {
-        console.log(data);
         this.particularUserPosts = data.data;
       })
       .catch((err) => console.log(err));
@@ -39,10 +40,19 @@ export default {
 </script>
 
 <style scoped>
+/* MOBILE FIRST */
 .particular-user-posts {
-  max-width: 100vw;
+  padding: 60px 0px 10px 0px;
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
+}
+
+/* SMALL SCREENS, LAPTOPS */
+
+@media screen and (min-width: 768px) {
+  .particular-user-posts {
+    justify-content: flex-start;
+  }
 }
 </style>

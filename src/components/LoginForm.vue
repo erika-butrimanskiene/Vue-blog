@@ -82,10 +82,8 @@ export default {
           } else {
             localStorage.setItem('vue-blog-key', data.secretKey);
             localStorage.setItem('vue-blog-user', this.user.name);
-            console.log(data);
             this.$router.push('/');
           }
-          console.log(data);
         })
         .catch((err) => console.log(err));
     },

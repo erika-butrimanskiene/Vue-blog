@@ -97,7 +97,6 @@ export default {
       })
         .then((res) => res.json())
         .then((data) => {
-          console.log(data);
           if (data.success === false) {
             this.submitMessage = data.message;
           } else {

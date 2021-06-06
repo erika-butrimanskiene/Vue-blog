@@ -1,14 +1,18 @@
 <template>
   <div class="wrapper">
     <header class="header">
+      <div class="logo">
+        <p>VUE</p>
+      </div>
       <nav id="nav">
         <router-link to="/">Home</router-link>
-        <p>Logout</p>
-        <router-link to="/register">Sign Up</router-link>
-        <router-link to="/login">Log In</router-link>
-        <router-link v-if="this.token !== null" to="/addPost"
-          >Admin</router-link
-        >
+        <router-link v-if="isLogedIn" to="/addPost">Admin</router-link>
+        <div id="login-signup" v-if="!isLogedIn">
+          <router-link to="/register">Sign Up</router-link>
+          <span>|</span>
+          <router-link to="/login">Log In</router-link>
+        </div>
+        <p @click="handleLogout" v-if="isLogedIn">Logout</p>
       </nav>
     </header>
     <router-view />
@@ -20,11 +24,21 @@ export default {
   name: 'Header',
   data() {
     return {
-      token: localStorage.getItem('vue-blog-key'),
+      isLogedIn: false,
     };
   },
+  methods: {
+    handleLogout() {
+      localStorage.removeItem('vue-blog-key');
+      localStorage.removeItem('vue-blog-user');
+      this.isLogedIn = false;
+    },
+  },
+  created() {
+    if (localStorage.getItem('vue-blog-key') !== null) this.isLogedIn = true;
+  },
   updated() {
-    this.token = localStorage.getItem('vue-blog-key');
+    if (localStorage.getItem('vue-blog-key') !== null) this.isLogedIn = true;
   },
 };
 </script>
@@ -35,12 +49,24 @@ export default {
 }
 .header {
   background-color: #272727;
+  display: flex;
+  justify-content: space-between;
+}
+
+.logo {
+  display: flex;
+  padding: 0px 20px;
+  align-items: center;
+  font-size: 1.7em;
+  font-weight: bold;
+  color: white;
+  text-decoration: none;
 }
 
 #nav {
-  padding: 30px;
+  padding: 30px 20px;
   display: flex;
-  justify-content: space-between;
+  justify-content: flex-end;
 }
 
 #nav a,
@@ -48,6 +74,11 @@ export default {
   font-weight: bold;
   color: white;
   text-decoration: none;
+  padding: 0px 15px;
+}
+
+#nav p {
+  font-style: italic;
 }
 
 #nav a.router-link-exact-active {
@@ -55,5 +86,35 @@ export default {
 }
 #nav p:active {
   color: #fc28c7;
+}
+
+#login-signup a {
+  padding: 0px 5px;
+  font-style: italic;
+}
+
+#login-signup span {
+  color: white;
+}
+
+/* SMALL SCREENS, LAPTOPS */
+
+@media screen and (min-width: 768px) {
+  .logo {
+    font-size: 2em;
+  }
+
+  #nav a,
+  #nav p {
+    font-size: 1.3em;
+  }
+
+  .logo {
+    padding: 0px 40px;
+  }
+
+  #nav {
+    padding: 30px 40px;
+  }
 }
 </style>

@@ -1,17 +1,17 @@
 <template>
   <main>
     <AdminRoutes />
-    <UserPosts />
+    <AllUserPosts />
   </main>
 </template>
 
 <script>
-import UserPosts from '../components/UserPosts';
+import AllUserPosts from '../components/AllUserPosts';
 import AdminRoutes from '../components/AdminRoutes.vue';
 export default {
   name: 'EditingPage',
   components: {
-    UserPosts,
+    AllUserPosts,
     AdminRoutes,
   },
 };

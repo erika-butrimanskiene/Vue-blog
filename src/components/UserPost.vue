@@ -23,7 +23,7 @@
 
 <script>
 export default {
-  name: 'SingleUserPost',
+  name: 'UserPost',
   props: {
     post: Object,
   },
@@ -48,6 +48,7 @@ export default {
   flex-wrap: wrap;
 }
 .user-post-content {
+  width: 100%;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -56,7 +57,7 @@ export default {
 .user-post-content__heading,
 .user-post-content__text,
 .user-post-content__img {
-  max-width: 100%;
+  width: 100%;
   overflow-wrap: break-word;
 }
 

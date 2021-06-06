@@ -94,7 +94,6 @@ export default {
           } else {
             this.$router.push('/login');
           }
-          console.log(data);
         })
         .catch((err) => console.log(err));
     },

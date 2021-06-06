@@ -1,6 +1,6 @@
 <template>
   <div class="user-posts">
-    <SingleUserPost
+    <UserPost
       @postDelete="fetchToDeleteUserPost"
       @postEdit="showEditingPost"
       v-for="post in userPosts"
@@ -34,7 +34,7 @@
           >
           <textarea
             type="text"
-            rows="5"
+            rows="6"
             class="edit-post-form__input"
             id="postDescription"
             v-model="editingPost.description"
@@ -64,13 +64,13 @@
 </template>
 
 <script>
-import SingleUserPost from '../components/SingleUserPost';
+import UserPost from '../components/UserPost';
 import Button from '../components/Button.vue';
 import EditModal from '../components/EditModal';
 export default {
-  name: 'UserPosts',
+  name: 'AllUserPosts',
   components: {
-    SingleUserPost,
+    UserPost,
     Button,
     EditModal,
   },
@@ -204,7 +204,6 @@ export default {
     fetch(`http://167.99.138.67:1111/getuserposts/${this.userName}`)
       .then((res) => res.json())
       .then((data) => {
-        console.log(data);
         this.userPosts = data.data;
       })
       .catch((err) => console.log(err));
